@@ -48,9 +48,6 @@ Bitmap.prototype.transform = function(operation) {
 const flipImage = (bmp) => {
   let flipArr = [];
   var pixelWidth = Math.ceil(bmp.width / 4) * 4;
-  console.log(bmp)
-  console.log(bmp.pixelBuffer.length)
-  console.log(bmp.height * bmp.width)
   for(let i = 0; i < bmp.pixelBuffer.length; i += pixelWidth) {
     flipArr.push(bmp.pixelBuffer.slice(i, i + pixelWidth));
   }

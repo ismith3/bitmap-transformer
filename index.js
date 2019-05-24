@@ -19,6 +19,14 @@ Bitmap.prototype.parse = function(buffer) {
   this.buffer = buffer;
   this.type = buffer.toString('utf-8', 0, 2);
   //... and so on
+
+  this.size = buffer.readInt32LE(2);
+  this.offset = buffer.readInt32LE(10);
+  this.width = buffer.readInt32LE(18);
+  this.height = buffer.readInt32LE(22);
+  this.bitsPerPixel = buffer.readInt32LE(0x1C);
+  this.colorBuffer = buffer.slice(54, this.offset);
+  this.pixelBuffer = buffer.slice(this.offset);
 };
 
 /**
@@ -91,4 +99,12 @@ const [file, operation] = process.argv.slice(2);
 
 let bitmap = new Bitmap(file);
 
-transformWithCallbacks();
+
+if (!module.parent) {
+  transformWithCallbacks();
+}
+
+module.exports = {
+  Bitmap,
+  transformGreyscale,
+};

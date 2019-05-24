@@ -92,4 +92,3 @@ const [file, operation] = process.argv.slice(2);
 let bitmap = new Bitmap(file);
 
 transformWithCallbacks();
-

@@ -56,7 +56,14 @@ const transformGreyscale = (bmp) => {
 };
 
 const doTheInversion = (bmp) => {
-  bmp = {};
+  let thing = bmp.colorBuffer.slice(4, 8);
+  console.log(~thing);
+  for(let i = 0; i < bmp.colorBuffer.length; i += 4) {
+    bmp.colorBuffer[i] = ~bmp.colorBuffer[i];
+    bmp.colorBuffer[i + 1] = ~bmp.colorBuffer[i + 1];
+    bmp.colorBuffer[i + 2] = ~bmp.colorBuffer[i + 2];
+    bmp.colorBuffer[i + 3] = ~bmp.colorBuffer[i + 3];
+  }
 };
 
 /**

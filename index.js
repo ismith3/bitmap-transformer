@@ -49,7 +49,7 @@ const transformGreyscale = (bmp) => {
 
 const doTheInversion = (bmp) => {
   bmp = {};
-}
+};
 
 /**
  * A dictionary of transformations
@@ -57,7 +57,7 @@ const doTheInversion = (bmp) => {
  */
 const transforms = {
   greyscale: transformGreyscale,
-  invert: doTheInversion
+  invert: doTheInversion,
 };
 
 // ------------------ GET TO WORK ------------------- //

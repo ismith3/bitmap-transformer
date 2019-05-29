@@ -45,19 +45,18 @@ Bitmap.prototype.transform = function(operation) {
  * Pro Tip: Use "pass by reference" to alter the bitmap's buffer in place so you don't have to pass it around ...
  * @param bmp
  */
-const transformGreyscale = (bmp) => {
-
-  console.log('Transforming bitmap into greyscale', bmp);
-
-  //TODO: Figure out a way to validate that the bmp instance is actually valid before trying to transform it
-
-  //TODO: alter bmp to make the image greyscale ...
-
+const flipImage = (bmp) => {
+  let flipArr = [];
+  var pixelWidth = Math.ceil(bmp.width / 4) * 4;
+  for(let i = 0; i < bmp.pixelBuffer.length; i += pixelWidth) {
+    flipArr.push(bmp.pixelBuffer.slice(i, i + pixelWidth));
+  }
+  let newBuffer = Buffer.concat(flipArr.reverse());
+  newBuffer.copy(bmp.pixelBuffer);
+  console.log(bmp.pixelBuffer.length);
 };
 
 const doTheInversion = (bmp) => {
-  let thing = bmp.colorBuffer.slice(4, 8);
-  console.log(~thing);
   for(let i = 0; i < bmp.colorBuffer.length; i += 4) {
     bmp.colorBuffer[i] = ~bmp.colorBuffer[i];
     bmp.colorBuffer[i + 1] = ~bmp.colorBuffer[i + 1];
@@ -71,7 +70,7 @@ const doTheInversion = (bmp) => {
  * Each property represents a transformation that someone could enter on the command line and then a function that would be called on the bitmap to do this job
  */
 const transforms = {
-  greyscale: transformGreyscale,
+  flip: flipImage,
   invert: doTheInversion,
 };
 
@@ -113,5 +112,6 @@ if (!module.parent) {
 
 module.exports = {
   Bitmap,
-  transformGreyscale,
+  flipImage,
+  doTheInversion,
 };
